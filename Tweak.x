@@ -17,11 +17,11 @@
 @end
 
 #define onceColor(colorName, r, g, b, a) \
-	static UIColor *color = nil; \
+    static UIColor *color = nil; \
     static dispatch_once_t onceToken; \
     dispatch_once(&onceToken, ^{ \
         color = [[objc_getClass("UICachedDeviceRGBColor") alloc] initWithRed:r green:g blue:b alpha:a]; \
-		[color _setSystemColorName:colorName]; \
+        [color _setSystemColorName:colorName]; \
     }); \
     return color
 
@@ -36,11 +36,11 @@
 %hook UIColor
 
 + (UIColor *)_systemColorWithName:(NSString *)name {
-	UIColor *color = nil;
-	@try {
-		color = %orig(name);
-	} @catch (NSException *e) {}
-	return color;
+    UIColor *color = nil;
+    @try {
+        color = %orig(name);
+    } @catch (NSException *e) {}
+    return color;
 }
 
 %new
